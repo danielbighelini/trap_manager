@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "net-snmp": "^3.8.2",
+    "node-red-contrib-snmp-trap-listener": "^2.4.0"
+  }
+}
