@@ -1,26 +1,23 @@
-var session = snmp.createSession ("127.0.0.1", "public");
+// Example code for node-snmp-native.
+// ----
 
-var oids = ["1.3.6.1.2.1.1.5.0", "1.3.6.1.2.1.1.6.0"];
+// This file contains examples of how to use the library.
 
-session.get (oids, function (error, varbinds) {
-    if (error) {
-        console.error (error);
-    } else {
-        for (var i = 0; i < varbinds.length; i++) {
-            if (snmp.isVarbindError (varbinds[i])) {
-                console.error (snmp.varbindError (varbinds[i]));
-            } else {
-                console.log (varbinds[i].oid + " = " + varbinds[i].value);
-            }
-        }
-    }
-    session.close ();
-});
+// Basic setup
+// -----
 
-session.trap (snmp.TrapType.LinkDown, function (error) {
-    if (error) {
-        console.error (error);
-    }
-});
+// The snmp object is the main entry point to the library.
+var snmp = require('snmp-native');
 
-console.log('rodei');
+var util = require('util');
+
+var host = 'localhost';
+var community = 'public';
+
+// A session is required to communicate with an agent.
+var session = new snmp.Session({ host: host, community: community });
+
+// All OIDs are represented as integer arrays.
+// There is no interpretation of string or MIB names.
+// This here is the OID for sysDescr.0.
+var oid = [1, 3, 6, 1, 2, 1, 1, 1, 0];
